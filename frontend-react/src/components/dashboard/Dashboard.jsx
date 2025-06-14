@@ -25,9 +25,8 @@ const Dashboard = () => {
   const [predictedDate, setPredictedDate] = useState()
 
   const [candlestickChart, setCandlestickChart] = useState()
-  const [predOpen, setPredOpen] = useState()
-  const [predClose, setPredClose] = useState()
-  const [predDate, setPredDate] = useState()
+  const [predictedHigh, setPredictedHigh] = useState()
+  const [predictedLow, setPredictedLow] = useState()
 
 
 
@@ -66,6 +65,8 @@ const Dashboard = () => {
       const predictionUrl = `${backendRoot}${response.data.plot_prediction}`
 
       const candleUrl = `${backendRoot}${response.data.candle_plot}`
+      setCandlestickChart(candleUrl)
+
 
       setPlot(plotUrl)
       setMa100(ma100Url)
@@ -79,6 +80,8 @@ const Dashboard = () => {
       setPredictedOpen(response.data.predicted_open)
       setPredictedClose(response.data.predicted_close)
       setPredictedDate(response.data.predicted_date)
+      setPredictedHigh(response.data.predicted_high)
+      setPredictedLow(response.data.predicted_low)
       
 
       // set plots
@@ -112,6 +115,25 @@ const Dashboard = () => {
           </form>
         </div>
         {/* print prediction plot */}
+
+
+        {candlestickChart && (
+          <div className='row'>         
+            <div className=" col-8">
+              <h4 className="text-light">Candlestick Chart</h4>
+              <img src={candlestickChart} alt="Candlestick Chart" style={{ maxWidth: '100%' }} />
+            </div>
+            <div className="text-light p-5 col-4">
+            <h4>Next Day Prediction</h4>
+            <p><strong>Date:</strong> {predictedDate}</p>
+            <p><strong>Predicted Open Price:</strong> ${predictedOpen}</p>
+            <p><strong>Predicted High Price:</strong> ${predictedHigh}</p>
+            <p><strong>Predicted Close Price:</strong> ${predictedClose}</p>
+            <p><strong>Predicted Low Price:</strong> ${predictedLow}</p>
+            </div>
+          </div>
+        )}
+
 
         {prediction && (
           <div className="prediction mt-5">
@@ -150,10 +172,8 @@ const Dashboard = () => {
           </div>
 
         </div>
-        )}
-        
+        )} 
       </div>
-
     </div>
   )
 }

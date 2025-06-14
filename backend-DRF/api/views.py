@@ -170,7 +170,54 @@ class StockPredictionAPIView(APIView):
       while next_day.weekday() >= 5:  # 5 = Saturday, 6 = Sunday
         next_day += pd.Timedelta(days=1)
       next_day_date = next_day.strftime('%Y-%m-%d')
-              
+
+
+            # Candlestick Chart
+      recent_ohlc = df[['Date', 'Open', 'High', 'Low', 'Close']].copy()
+      recent_ohlc.set_index('Date', inplace=True)
+      recent_ohlc = recent_ohlc[-30:]  # last 30 days
+
+      # Predicted candle (with $1 range added)
+      predicted_high = max(predicted_open, predicted_close) + 1
+      predicted_low = min(predicted_open, predicted_close) - 1
+
+      # Append predicted row
+      predicted_row = pd.DataFrame({
+          'Open': [predicted_open],
+          'High': [predicted_high],
+          'Low': [predicted_low],
+          'Close': [predicted_close]
+      }, index=[pd.to_datetime(next_day_date)])
+
+      recent_ohlc = pd.concat([recent_ohlc, predicted_row])
+
+      # Create Candlestick chart
+      fig = go.Figure(data=[go.Candlestick(
+          x=recent_ohlc.index,
+          open=recent_ohlc['Open'],
+          high=recent_ohlc['High'],
+          low=recent_ohlc['Low'],
+          close=recent_ohlc['Close'],
+          increasing_line_color='green',
+          decreasing_line_color='red'
+      )])
+
+      fig.update_layout(
+          title=f'📊 {ticker.upper()} Candlestick Chart with Prediction',
+          xaxis_title='Date',
+          yaxis_title='Price',
+          xaxis_rangeslider_visible=False,
+          template='plotly_dark',
+          width=1000,
+          height=500
+      )
+
+      # Save candlestick chart as image
+      candle_plot_path = os.path.join(settings.MEDIA_ROOT, f"{ticker}_candle.png")
+      pio.write_image(fig, candle_plot_path, format='png')
+
+      candle_plot_url = settings.MEDIA_URL + f"{ticker}_candle.png"
+                    
 
       return Response({'status': 'success',
         'plot_img': plot_img,
@@ -182,7 +229,10 @@ class StockPredictionAPIView(APIView):
         'r2':r2,
         'predicted_open': predicted_open,
         'predicted_close': predicted_close,
-        'predicted_date': next_day_date
+        'predicted_date': next_day_date,
+        'predicted_high': predicted_high,
+        'predicted_low': predicted_low,
+        'candle_plot': candle_plot_url ,
 
       })
   
