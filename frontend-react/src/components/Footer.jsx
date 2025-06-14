@@ -33,7 +33,7 @@ const Footer = () => {
           <div className="col-lg-4 text-center mb-4 mb-lg-0">
             <div className="d-flex justify-content-center">
               <a 
-                href="https://github.com/yourusername" 
+                href="https://github.com/farsen119/Stock_Market_Portal" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn btn-sm btn-outline-info mx-2"
@@ -49,7 +49,7 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faGithub} />
               </a>
               <a 
-                href="https://linkedin.com/in/yourusername" 
+                href="https://www.linkedin.com/in/farseen-kp-ab9816305/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn btn-sm btn-outline-info mx-2"
@@ -65,7 +65,7 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
               <a 
-                href="https://twitter.com/yourusername" 
+                href="" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn btn-sm btn-outline-info mx-2"
