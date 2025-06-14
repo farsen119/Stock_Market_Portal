@@ -20,6 +20,15 @@ const Dashboard = () => {
   const[rmse,setRmse] = useState()
   const[r2,setR2] = useState()
 
+  const [predictedOpen, setPredictedOpen] = useState()
+  const [predictedClose, setPredictedClose] = useState()
+  const [predictedDate, setPredictedDate] = useState()
+
+  const [candlestickChart, setCandlestickChart] = useState()
+  const [predOpen, setPredOpen] = useState()
+  const [predClose, setPredClose] = useState()
+  const [predDate, setPredDate] = useState()
+
 
 
   // const accessToken = localStorage.getItem('accessToken')
@@ -27,16 +36,9 @@ const Dashboard = () => {
     const fetchProtectedData = async () => {
       try {
         const response = await  axiosInstance.get('/protected-view', {
-          // headers: {
-          //   Authorization: `Bearer ${accessToken}`
-          // }
       })
-
-      // console.log('success:', response.data)
-
       }catch (error){
         console.error("error fetching data:" , error)
-
       }
     }
     fetchProtectedData();
@@ -63,6 +65,8 @@ const Dashboard = () => {
       const ma200Url = `${backendRoot}${response.data.plot_200_DMA}`
       const predictionUrl = `${backendRoot}${response.data.plot_prediction}`
 
+      const candleUrl = `${backendRoot}${response.data.candle_plot}`
+
       setPlot(plotUrl)
       setMa100(ma100Url)
       setMa200(ma200Url)
@@ -71,6 +75,11 @@ const Dashboard = () => {
       setMse(response.data.mse)
       setRmse(response.data.rmse)
       setR2(response.data.r2)
+
+      setPredictedOpen(response.data.predicted_open)
+      setPredictedClose(response.data.predicted_close)
+      setPredictedDate(response.data.predicted_date)
+      
 
       // set plots
 
@@ -132,6 +141,12 @@ const Dashboard = () => {
             <p>Mean Square Error (MSE): {mse}</p>
             <p>Root Mean Square Error (RMSE): {rmse}</p>
             <p>R-Square (R2): {r2}</p>
+          </div>
+          <div className="text-light p-3">
+            <h4>Next Day Prediction</h4>
+            <p><strong>Date:</strong> {predictedDate}</p>
+            <p><strong>Predicted Open Price:</strong> ${predictedOpen}</p>
+            <p><strong>Predicted Close Price:</strong> ${predictedClose}</p>
           </div>
 
         </div>

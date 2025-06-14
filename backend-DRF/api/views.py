@@ -17,6 +17,9 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import load_model
 from sklearn.metrics import mean_squared_error, r2_score
 
+import plotly.graph_objects as go
+import plotly.io as pio
+
 
 
 
@@ -97,7 +100,7 @@ class StockPredictionAPIView(APIView):
       model = load_model('stock_prediction_MA_LSTM_model.keras')
 
 
-      # preparing Test Data
+      # preparing Test Dat
       past_100_days = data_training.tail(100)
       final_df = pd.concat([past_100_days, data_testing], ignore_index=True)
       input_data = scaler.fit_transform(final_df)
@@ -149,6 +152,24 @@ class StockPredictionAPIView(APIView):
       # R-Squared
       r2 = r2_score(y_test, y_predicted)
       print(f"R-Squared: {r2}")
+
+      df_oc = df[['Open', 'Close']].copy()
+      scaler_oc = MinMaxScaler()
+      scaled_data = scaler_oc.fit_transform(df_oc)
+
+      last_100_days = scaled_data[-100:].reshape(1, 100, 2)
+      model_oc = load_model('lstm_open_close_model.keras')
+      predicted_next_day_scaled = model_oc.predict(last_100_days)
+      predicted_next_day = scaler_oc.inverse_transform(predicted_next_day_scaled)
+
+      predicted_open = round(float(predicted_next_day[0][0]), 2)
+      predicted_close = round(float(predicted_next_day[0][1]), 2)
+      # next_day_date = (df['Date'].max() + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+
+      next_day = df['Date'].max() + pd.Timedelta(days=1)
+      while next_day.weekday() >= 5:  # 5 = Saturday, 6 = Sunday
+        next_day += pd.Timedelta(days=1)
+      next_day_date = next_day.strftime('%Y-%m-%d')
               
 
       return Response({'status': 'success',
@@ -158,7 +179,10 @@ class StockPredictionAPIView(APIView):
         'plot_prediction':plot_prediction,
         'mse':mse,
         'rmse':rmse,
-        'r2':r2
+        'r2':r2,
+        'predicted_open': predicted_open,
+        'predicted_close': predicted_close,
+        'predicted_date': next_day_date
 
       })
   
