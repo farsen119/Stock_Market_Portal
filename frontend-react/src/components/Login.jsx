@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from './AuthProvider'
+import backgroundImageLogin from '../assets/loginstock.jpg'; 
+
+
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -37,7 +40,7 @@ const Login = () => {
   
   return (
     <div className="d-flex align-items-center min-vh-100" style={{
-      backgroundImage: 'linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+      backgroundImage: `linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url(${backgroundImageLogin})`,
       backgroundSize: 'cover',
       backgroundAttachment: 'fixed',
       backgroundPosition: 'center'
@@ -64,7 +67,7 @@ const Login = () => {
                   }}>
                     Welcome Back
                   </h3>
-                  <p className="text-muted">Sign in to continue</p>
+                  <p className="textlogin">Sign in to continue</p>
                 </div>
 
                 {error && (
@@ -149,7 +152,7 @@ const Login = () => {
                 </form>
 
                 <div className="text-center mt-4">
-                  <p className="text-muted">
+                  <p className="textlogin">
                     Don't have an account?{' '}
                     <a 
                       href="/register" 

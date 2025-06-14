@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../axiosinstance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faExpand, faTimes, faGlobe, faFlag } from '@fortawesome/free-solid-svg-icons';
+import backgroundImageReg from '../../assets/dashboardstock.jpg';
 
 
 
@@ -103,7 +104,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-vh-100" style={{
-      backgroundImage: 'linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+      backgroundImage: `linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url(${backgroundImageReg})`,
       backgroundSize: 'cover',
       backgroundAttachment: 'fixed',
       backgroundPosition: 'center',

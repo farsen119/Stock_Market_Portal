@@ -22,7 +22,7 @@ const About = () => {
                 borderLeft: `3px solid #00c3ff`
               }}>
                 <p className="lead mb-0" style={{ color: '#ffffff' }}>
-                  We combine financial expertise with cutting-edge machine learning to deliver accurate stock predictions.
+                  We combine deep learning with financial insights to predict stock prices using advanced LSTM models.
                 </p>
               </div>
               <p className="mb-4" style={{ color: 'rgba(255,255,255,0.7)' }}>
@@ -31,7 +31,7 @@ const About = () => {
               <Button 
                 text={<><i className="bi bi-arrow-right-circle me-2"></i> Learn More</>}
                 class="fw-bold px-4 py-3"
-                url="/about"
+                url="/login"
                 style={{
                   background: 'linear-gradient(145deg, #00c3ff, #0084b6)',
                   border: 'none',
@@ -43,6 +43,7 @@ const About = () => {
           </div>
           <div className="col-lg-6">
             <div className="position-relative" style={{ perspective: '1000px' }}>
+              <a href="https://sg.finance.yahoo.com/markets/">
               <div className="rounded-4 overflow-hidden" style={{
                 transform: 'rotateY(-15deg) rotateX(5deg)',
                 border: '2px solid rgba(0,195,255,0.3)',
@@ -52,12 +53,14 @@ const About = () => {
                 <div className="ratio ratio-16x9">
                   <div className="d-flex align-items-center justify-content-center" style={{
                     color: '#00c3ff',
-                    fontSize: '5rem'
+                    fontSize: '5rem',
+                   backgroundImage:'url("https://airel.ch/wp-content/uploads/2022/01/yahoo1.png")',
                   }}>
                     <i className="bi bi-people-fill"></i>
                   </div>
                 </div>
               </div>
+              </a>
               <div className="position-absolute bottom-0 start-0 translate-middle-y ms-4 p-3 rounded-3" style={{
                 width: '60%',
                 transform: 'perspective(100px) rotateX(5deg) rotateY(10deg)',
@@ -66,8 +69,8 @@ const About = () => {
                 boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
                 border: '1px solid rgba(0,195,255,0.3)'
               }}>
-                <h5 className="mb-2" style={{ color: '#00c3ff' }}>Our Team</h5>
-                <p className="small mb-0" style={{ color: 'rgba(255,255,255,0.7)' }}>Data scientists and financial experts working together</p>
+                <h5 className="mb-2" style={{ color: '#00c3ff' }}>More Details About Stocks</h5>
+                <p className="small mb-0" style={{ color: 'rgba(255,255,255,0.7)' }}>We fetch historical stock data directly from Yahoo Finance</p>
               </div>
             </div>
           </div>

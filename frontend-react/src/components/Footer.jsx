@@ -25,7 +25,7 @@ const Footer = () => {
             }}>
               StockPredict AI
             </h5>
-            <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>
+            <p className="textfooter mb-0" style={{ fontSize: '0.9rem' }}>
               Advanced market predictions powered by machine learning
             </p>
           </div>
@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
           
           <div className="col-lg-4 text-center text-lg-end">
-            <p className="text-muted mb-1" style={{ fontSize: '0.85rem' }}>
+            <p className="textfooter mb-1" style={{ fontSize: '0.85rem' }}>
               &copy; {new Date().getFullYear()} StockPredict AI
             </p>
             <p className="mb-0" style={{ 
@@ -98,7 +98,7 @@ const Footer = () => {
 
         <div className="row mt-4">
           <div className="col-12 text-center">
-            <p className="text-muted small" style={{ opacity: 0.7 }}>
+            <p className="textfooter2 small" style={{ opacity: 0.7 }}>
               Disclaimer: Predictions are for educational purposes only. Not financial advice.
             </p>
           </div>

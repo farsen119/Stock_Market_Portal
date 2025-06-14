@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import backgroundImage from '../assets/registerstock.jpg'; 
+
 
 const Register = () => {
   const [username, setUsername] = useState('')
@@ -34,7 +36,7 @@ const Register = () => {
 
   return (
     <div className="d-flex align-items-center min-vh-100" style={{
-      backgroundImage: 'linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+      backgroundImage: `linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url(${backgroundImage})`,
       backgroundSize: 'cover',
       backgroundAttachment: 'fixed',
       backgroundPosition: 'center'
@@ -61,7 +63,7 @@ const Register = () => {
                   }}>
                     Create Account
                   </h3>
-                  <p className="text-muted">Join us today</p>
+                  <p className="textregister">Join us today</p>
                 </div>
 
                 {success && (
@@ -181,7 +183,7 @@ const Register = () => {
                 </form>
 
                 <div className="text-center mt-4">
-                  <p className="text-muted">
+                  <p className="textregister">
                     Already have an account?{' '}
                     <a 
                       href="/login" 

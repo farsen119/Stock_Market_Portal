@@ -17,3 +17,19 @@ body {
 .container{
   flex: 1;
 }
+
+.textlogin{
+  color: rgb(159, 180, 199);
+}
+
+.textregister{
+  color: rgb(159, 180, 199);
+}
+
+.textfooter{
+  color: rgb(97, 116, 116);
+}
+
+.textfooter2{
+  color:rgb(119, 77, 77);
+}
