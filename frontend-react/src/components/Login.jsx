@@ -5,69 +5,167 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from './AuthProvider'
 
-
-
 const Login = () => {
-
-  const [username,setUsername] = useState('')
-  const [password,setPassword] = useState('')
-  const [loading,setLoading] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  const [error, setError] = useState ('')
-  const {isLoggedIn,setisLoggedIn} = useContext(AuthContext)
+  const [error, setError] = useState('')
+  const {isLoggedIn, setisLoggedIn} = useContext(AuthContext)
 
   const handleLogin = async (e) => {
     e.preventDefault(); 
     setLoading(true);
+    setError('')
 
-    const userData = {username,password}
-    console.log('user data==>',userData)
+    const userData = {username, password}
+    console.log('user data==>', userData)
 
-    try{
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/',userData)
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', userData)
       localStorage.setItem('accessToken', response.data.access)
       localStorage.setItem('refreshToken', response.data.refresh)
       console.log("login success")
       setisLoggedIn(true)
       navigate('/dashboard')
-
-    }catch(error){
+    } catch(error) {
       setError('Invalid credentials')
-    }finally{
+    } finally {
       setLoading(false)
     }
   }
-
-
-
+  
   return (
-
-    <>
-    <div className="container">
+    <div className="d-flex align-items-center min-vh-100" style={{
+      backgroundImage: 'linear-gradient(rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.9)), url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+      backgroundSize: 'cover',
+      backgroundAttachment: 'fixed',
+      backgroundPosition: 'center'
+    }}>
+      <div className="container py-5">
         <div className="row justify-content-center">
-          <div className="col-md-6 bg bg-light-dark p-5 rounded">
-            <h3 className='text-light text-center mb-4'>Login to APP</h3>
-            <form onSubmit={handleLogin}>
+          <div className="col-md-6 col-lg-5">
+            <div className="card border-0 shadow-lg" style={{
+              transform: 'perspective(500px) rotateY(0deg) rotateX(10deg)',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              background: 'rgba(20, 25, 40, 0.8)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(0, 195, 255, 0.2)',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+            }}>
+              <div className="card-body p-4 p-sm-5">
+                <div className="text-center mb-4">
+                  <h3 className="fw-bold" style={{
+                    background: 'linear-gradient(90deg, #00c3ff, #ffff1c)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '0 0 10px rgba(0, 195, 255, 0.3)'
+                  }}>
+                    Welcome Back
+                  </h3>
+                  <p className="text-muted">Sign in to continue</p>
+                </div>
 
-              <div className='mb-3'>
-                <input type="text" className='form-control' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
-                
-              </div>
+                {error && (
+                  <div className="alert alert-danger" style={{
+                    background: 'rgba(255, 65, 108, 0.2)',
+                    border: '1px solid rgba(255, 65, 108, 0.5)',
+                    color: '#ff416c'
+                  }}>
+                    {error}
+                  </div>
+                )}
 
-              <div className='mb-3'>
-                <input type="password" className='form-control ' placeholder='Set Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <form onSubmit={handleLogin}>
+                  <div className="mb-4">
+                    <label htmlFor="username" className="form-label text-light">Username</label>
+                    <input 
+                      type="text" 
+                      className="form-control bg-dark border-dark text-light" 
+                      placeholder="Enter your username" 
+                      value={username} 
+                      onChange={(e) => setUsername(e.target.value)}
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(0, 195, 255, 0.3)',
+                        borderRadius: '8px',
+                        height: '45px'
+                      }}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label htmlFor="password" className="form-label text-light">Password</label>
+                    <input 
+                      type="password" 
+                      className="form-control bg-dark border-dark text-light" 
+                      placeholder="Enter your password" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)}
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(0, 195, 255, 0.3)',
+                        borderRadius: '8px',
+                        height: '45px'
+                      }}
+                    />
+                  </div>
+
+                  <div className="d-grid">
+                    {loading ? (
+                      <button 
+                        type="submit" 
+                        className="btn btn-primary fw-bold py-2" 
+                        disabled
+                        style={{
+                          background: 'linear-gradient(145deg, #00c3ff, #0084b6)',
+                          border: 'none',
+                          borderRadius: '8px',
+                          boxShadow: '0 5px 15px rgba(0, 195, 255, 0.3)',
+                          height: '45px'
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faSpinner} spin className="me-2" />
+                        Authenticating...
+                      </button>
+                    ) : (
+                      <button 
+                        type="submit" 
+                        className="btn btn-primary fw-bold py-2"
+                        style={{
+                          background: 'linear-gradient(145deg, #00c3ff, #0084b6)',
+                          border: 'none',
+                          borderRadius: '8px',
+                          boxShadow: '0 5px 15px rgba(0, 195, 255, 0.3)',
+                          height: '45px',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        Login
+                      </button>
+                    )}
+                  </div>
+                </form>
+
+                <div className="text-center mt-4">
+                  <p className="text-muted">
+                    Don't have an account?{' '}
+                    <a 
+                      href="/register" 
+                      className="text-decoration-none"
+                      style={{ color: '#00c3ff' }}
+                    >
+                      Sign up
+                    </a>
+                  </p>
+                </div>
               </div>
-              {error && <div className='text text-danger'>{error}</div>}
-              {loading ? (
-                <button type='submit' className='btn btn-info d-block mx-auto' disabled> <FontAwesomeIcon icon={faSpinner} spin />  Login...</button>
-              ) : (
-                <button type='submit' className='btn btn-info d-block mx-auto'>Login</button>
-              )}
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

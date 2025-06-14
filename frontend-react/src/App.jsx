@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard/Dashboard'
 import PrivateRout from './PrivateRout'
 import PublicRout from './PublicRout'
 
+import './assets/css/dashboard.css';
 
 
 function App() {

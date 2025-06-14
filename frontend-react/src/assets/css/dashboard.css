@@ -1,0 +1,7 @@
+.inputbox .custom-placeholder::placeholder {
+  color: rgba(135, 90, 90, 0.6);  /* Light white placeholder */
+  font-style: italic;
+}
+.text1{
+  color: rgb(85, 124, 124);
+}
